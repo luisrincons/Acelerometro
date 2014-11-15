@@ -3,23 +3,23 @@ var jQT = new $.jQTouch({
 	themeSelectionSelector: '#jqt'
 });
 
-var fn= {
+var fn = {
     device: function(){
-        Document.addEventListener('deviceready', fn.init, false);
+        document.addEventListener('deviceready', fn.init, false);
     },
-    init : function (){
-        //Botón iniciar acelerometro.
-        //$('#acelerometro .individual li').tap(ace.start);
-        $('#acelerometro .individual li').eq(0).tap(ace.start);
-        //Botón detener acelerometro.
-        $('#acelerometro .individual li').eq(1).tap(ace.stop);
+    init: function(){
+        //Iniciar Acelerómetro
+        $('#acelerometro .individual li').eq(0).tap(alert('iniciar'));
+        //Detener Acelerómetro
+        $('#acelerometro .individual li').eq(1).tap(alert('detener'));
+        
     }
 };
 
 var ace = {
     start: function(){
         if(ace.watchID == null)
-            ace.watchID = navigator.accelerometer.watchAcceleration(ace.sucess, ace.error, {frecuency:800});
+            ace.watchID = navigator.accelerometer.watchAcceleration(ace.success, ace.error, {frequency:800});
     },
     stop: function(){
         if(ace.watchID){
@@ -28,16 +28,15 @@ var ace = {
         }
     },
     watchID: null,
-    sucess: function(a) { 
-        var text = 'X:<b>' + a.x + '</b><br>' + 
-                   'Y:<b>' + a.y + '</b><br>' +
-                   'Z:<b>' + a.z + '</b><br>';
+    success: function(a){
+        var text = 'X: <b>'+a.x+'</b><br>'+
+                   'Y: <b>'+a.y+'</b><br>'+
+                   'Z: <b>'+a.z+'</b><br>';
         $('#acelerometro h2').html(text);
     },
     error: function(){
-        alert('Error  en el acelerómetro.');
+        alert('Error en el Acelerómetro');
     }
-
 };
 
 $(fn.device);
